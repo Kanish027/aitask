@@ -1,0 +1,20 @@
+.text_body--md {
+  font-size: 16px;
+  line-height: 28px;
+  font-family: "Lexend", sans-serif !important;
+  color: #131032;
+  font-weight: 400;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.subtitle {
+  font-size: 21px;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+.fa-circle-check {
+  font-size: 14px !important;
+}
