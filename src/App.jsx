@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import sampleAudio from "./sample.mp3"; // Import the first audio file
-import sampleAudio1 from "./sample1.mp3"; // Import the second audio file
+import sampleAudio from "./Noises/BabbleNoise_input.wav"; // Import the first audio file
+import sampleAudio1 from "./Noises/BabbleNoise_output.wav"; // Import the second audio file
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false); // State to track playback status
