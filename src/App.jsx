@@ -23,12 +23,14 @@ function App() {
 
     audio.addEventListener("ended", () => {
       setIsPlaying(false); // Change icon to play when music finishes
+      setCurrentTime(0); // Reset currentTime to 0 when audio ends
     });
 
     return () => {
       audio.removeEventListener("timeupdate", updateProgress);
       audio.removeEventListener("ended", () => {
         setIsPlaying(false);
+        setCurrentTime(0);
       });
     };
   }, [switchOn]); // Update effect when switch status changes
