@@ -45,9 +45,25 @@ function App() {
   };
 
   const handleSwitchChange = () => {
-    setSwitchOn(!switchOn); // Toggle the switch button status
-    setIsPlaying(false); // Stop playback when switching audio
-    setCurrentTime(audioRef.current.currentTime); // Store current playback time
+    const audio = audioRef.current;
+
+    // Store the current playback time of the current audio
+    const currentPlaybackTime = audio.currentTime;
+
+    // Switch to the other audio source
+    audio.src = switchOn ? sampleAudio : sampleAudio1;
+
+    // When the new audio metadata is loaded, set its playback time and start playing
+    audio.onloadedmetadata = () => {
+      audio.currentTime = currentPlaybackTime;
+      audio.play();
+    };
+
+    // Update switch button status
+    setSwitchOn(!switchOn);
+
+    // Update playback status
+    setIsPlaying(true);
   };
 
   const handleTimeUpdate = () => {
