@@ -1,13 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import sampleAudio from "./Noises/BabbleNoise_input.wav"; // Import the first audio file
-import sampleAudio1 from "./Noises/BabbleNoise_output.wav"; // Import the second audio file
+import sampleAudio from "./Noises/BabbleNoise_input.wav"; // Import the first audio file for Voice 1
+import sampleAudio1 from "./Noises/BabbleNoise_output.wav"; // Import the second audio file for Voice 1
+import sampleAudio2 from "./Noises/BikeNoise_input.wav"; // Import the first audio file for Voice 2
+import sampleAudio3 from "./Noises/BikeNoise_output.wav"; // Import the second audio file for Voice 2
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false); // State to track playback status
   const [now, setNow] = useState(0); // State to track progress bar value
   const [switchOn, setSwitchOn] = useState(false); // State to track switch button status
+  const [selectedVoice, setSelectedVoice] = useState("Voice 1"); // State to track selected voice
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0); // State to store current playback time
 
@@ -72,6 +75,20 @@ function App() {
     setCurrentTime(audioRef.current.currentTime); // Update current time on time update
   };
 
+  const handleVoiceChange = (voice) => {
+    setSelectedVoice(voice); // Update selected voice
+    // Update audio source based on the selected voice
+    if (voice === "Voice 1") {
+      audioRef.current.src = switchOn ? sampleAudio1 : sampleAudio;
+    } else if (voice === "Voice 2") {
+      audioRef.current.src = switchOn ? sampleAudio3 : sampleAudio2;
+    }
+    // Play the audio
+    audioRef.current.play();
+    // Update playback status
+    setIsPlaying(true);
+  };
+
   return (
     <div className="container-fluid px-4">
       <h1 className="text-center my-2 fw-bold">Features</h1>
@@ -79,7 +96,7 @@ function App() {
         <div className="col-lg-5">
           <div className="row">
             <div className="col-8">
-              <h4 className="subtitle">AI Noise Cancellation</h4>
+              <h5 className="subtitle">AI Noise Cancellation</h5>
               <p className="py-4 text_body--md">
                 Ensure maximum clarity by eliminating background noises, voices
                 and echo from both inbound and outbound meetings and calls.
@@ -102,7 +119,7 @@ function App() {
           </div>
         </div>
         <div className="col-lg-7">
-          <h4 className="text-center fw-bold">Hear the demo:</h4>
+          <h5 className="text-center fw-bold">Hear the demo:</h5>
           <div className="row d-flex justify-content-center">
             <div className="col-lg-10">
               <div className="py-4">
@@ -148,6 +165,33 @@ function App() {
                       </div>
                       <div>With Krisp</div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div className="my-4">
+                <h5 className="fw-bold text-center">
+                  Try different noise types
+                </h5>
+                <div className="d-flex gap-2 justify-content-center my-4">
+                  <div>
+                    <button
+                      className={`btn btn-outline-primary ${
+                        selectedVoice === "Voice 1" ? "active" : ""
+                      }`}
+                      onClick={() => handleVoiceChange("Voice 1")}
+                    >
+                      Babble Noise
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      className={`btn btn-outline-primary ${
+                        selectedVoice === "Voice 2" ? "active" : ""
+                      }`}
+                      onClick={() => handleVoiceChange("Voice 2")}
+                    >
+                      Bike Noise
+                    </button>
                   </div>
                 </div>
               </div>
